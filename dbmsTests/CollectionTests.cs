@@ -17,20 +17,20 @@ namespace dbms.Tests {
         [TestMethod()]
         public void UpdateTest() {
             Collection c = new Collection("test_collection");
-            c.Insert(new Document(new Dictionary<string, object>() { { "test", 0 } }));
-            c.Update(new Filter(new Dictionary<string, object>() { { "test", 0 } }), new Document(new Dictionary<string, object>() { { "test", 1 } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "test", new Variant(0) } }));
+            c.Update(new Filter(new Dictionary<string, Variant>() { { "test", new Variant(0) } }), new Document(new Dictionary<string, Variant>() { { "test", new Variant(1) } }));
 
-            Assert.AreEqual(1, c.Select(new Filter(new Dictionary<string, object>() { { "test", 0 } })).At(0).Get("test"));
+            Assert.AreEqual(1, c.Select(new Filter(new Dictionary<string, Variant>() { { "test", new Variant(0) } })).At(0).Get("test"));
         }
 
         [TestMethod()]
         public void RemoveTest() {
             Collection c = new Collection("test_collection");
-            c.Insert(new Document(new Dictionary<string, object>() { { "test", 0 } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "test", new Variant(0) } }));
 
             Assert.AreEqual(1, c.Size);
 
-            c.Update(new Filter(new Dictionary<string, object>() { { "test", 0 } }), new Document(new Dictionary<string, object>() { { "test", 1 } }));
+            c.Update(new Filter(new Dictionary<string, Variant>() { { "test", new Variant(0) } }), new Document(new Dictionary<string, Variant>() { { "test", new Variant(1) } }));
 
             Assert.AreEqual(0, c.Size);
         }
@@ -38,25 +38,25 @@ namespace dbms.Tests {
         [TestMethod()]
         public void SelectTest() {
             Collection c = new Collection("test_collection");
-            c.Insert(new Document(new Dictionary<string, object>() { { "test", 0 } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "test", new Variant(0) } }));
 
-            Assert.AreEqual(0, c.Select(new Filter(new Dictionary<string, object>() { { "test", 0 } })).At(0).Get("test"));
+            Assert.AreEqual(0, c.Select(new Filter(new Dictionary<string, Variant>() { { "test", new Variant(0) } })).At(0).Get("test"));
         }
 
         [TestMethod()]
         public void JoinTest() {
             Collection a = new Collection("a");
-            a.Insert(new Document(new Dictionary<string, object>() { { "id", 0 }, { "test", 11 } }));
-            a.Insert(new Document(new Dictionary<string, object>() { { "id", 1 }, { "test", 22 } }));
-            a.Insert(new Document(new Dictionary<string, object>() { { "id", 2 }, { "test", 33 } }));
+            a.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(0) }, { "test", new Variant(11) } }));
+            a.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(1) }, { "test", new Variant(22) } }));
+            a.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(2) }, { "test", new Variant(33) } }));
 
             Collection b = new Collection("b");
-            b.Insert(new Document(new Dictionary<string, object>() { { "id", 3 }, { "test", 44 } }));
-            b.Insert(new Document(new Dictionary<string, object>() { { "id", 0 }, { "test", 55 } }));
-            b.Insert(new Document(new Dictionary<string, object>() { { "id", 4 }, { "test", 66 } }));
+            b.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(3) }, { "test", new Variant(44) } }));
+            b.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(0) }, { "test", new Variant(55) } }));
+            b.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(4) }, { "test", new Variant(66) } }));
 
-            Assert.AreEqual(11, a.Join(b, "id").At(0).Get("a.test"));
-            Assert.AreEqual(55, a.Join(b, "id").At(0).Get("b.test"));
+            Assert.AreEqual(new Variant(11), a.Join(b, "id").At(0).Get("a.test"));
+            Assert.AreEqual(new Variant(55), a.Join(b, "id").At(0).Get("b.test"));
         }
     }
 }

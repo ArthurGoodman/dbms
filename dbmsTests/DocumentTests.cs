@@ -13,10 +13,10 @@ namespace dbms.Tests {
         [TestMethod()]
         public void GetTest() {
             Document doc = new Document();
-            object obj = new object();
-            doc.Set("test", obj);
+            Variant var = new Variant();
+            doc.Set("test", var);
 
-            Assert.AreEqual(obj, doc.Get("test"));
+            Assert.AreEqual(var, doc.Get("test"));
         }
 
         [TestMethod()]

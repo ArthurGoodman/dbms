@@ -2,9 +2,12 @@
 
 namespace dbms {
     public class Filter {
-        private Dictionary<string, object> fields;
+        private Dictionary<string, Variant> fields = new Dictionary<string, Variant>();
 
-        public Filter(Dictionary<string, object> fields) {
+        public Filter(Dictionary<string, Variant> fields) {
+            foreach (KeyValuePair<string, Variant> field in fields)
+                Utility.ValidateName(field.Key);
+
             this.fields = fields;
         }
 

@@ -2,13 +2,13 @@
 
 namespace dbms {
     public class Document {
-        private Dictionary<string, object> fields = new Dictionary<string, object>();
+        private Dictionary<string, Variant> fields = new Dictionary<string, Variant>();
 
         public Document() {
         }
 
-        public Document(Dictionary<string, object> fields) {
-            foreach (KeyValuePair<string, object> field in fields)
+        public Document(Dictionary<string, Variant> fields) {
+            foreach (KeyValuePair<string, Variant> field in fields)
                 Utility.ValidateName(field.Key);
 
             this.fields = fields;
@@ -18,11 +18,11 @@ namespace dbms {
             return fields.ContainsKey(name);
         }
 
-        public object Get(string name) {
+        public Variant Get(string name) {
             return fields[name];
         }
 
-        public void Set(string name, object value) {
+        public void Set(string name, Variant value) {
             Utility.ValidateName(name);
             fields.Add(name, value);
         }

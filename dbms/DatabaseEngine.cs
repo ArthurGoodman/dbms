@@ -3,11 +3,10 @@
 namespace dbms {
     public class DatabaseEngine {
         public Database db { get; private set; }
-        public List<Database> Databases { get; private set; }
+        private Dictionary<string, Database> databases = new Dictionary<string, Database>();
 
         public DatabaseEngine() {
             db = null;
-            Databases = new List<Database>();
         }
 
         public void Use(string name) {
