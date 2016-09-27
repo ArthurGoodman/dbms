@@ -15,7 +15,6 @@ namespace dbms {
         }
 
         public void Drop(string name) {
-            Utility.ValidateName(name);
         }
     }
 }

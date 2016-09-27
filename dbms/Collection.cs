@@ -22,5 +22,9 @@ namespace dbms {
         public Collection Select(Filter filter) {
             return null;
         }
+
+        public Collection Join(Collection other, string field) {
+            return null;
+        }
     }
 }
