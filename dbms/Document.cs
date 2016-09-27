@@ -1,0 +1,4 @@
+﻿namespace dbms {
+    class Document {
+    }
+}
