@@ -57,8 +57,12 @@ namespace dbms.Tests {
             b.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(0) }, { "test", new Variant(55) } }));
             b.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(4) }, { "test", new Variant(66) } }));
 
-            Assert.AreEqual(new Variant(11), a.Join(b, "id").At(0).Get("a.test"));
-            Assert.AreEqual(new Variant(55), a.Join(b, "id").At(0).Get("b.test"));
+            Collection c = a.Join(b, "id");
+
+            Assert.AreEqual(new Variant(0), c.At(0).Get("a.id"));
+            Assert.AreEqual(new Variant(0), c.At(0).Get("b.id"));
+            Assert.AreEqual(new Variant(11), c.At(0).Get("a.test"));
+            Assert.AreEqual(new Variant(55), c.At(0).Get("b.test"));
         }
 
         [TestMethod()]

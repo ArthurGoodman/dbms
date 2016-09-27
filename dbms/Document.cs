@@ -39,5 +39,16 @@ namespace dbms {
             foreach (KeyValuePair<string, Variant> field in document.fields)
                 Set(field.Key, field.Value);
         }
+
+        public Document Join(Document document, string leftName, string rightName) {
+            Document result = new Document();
+
+            foreach (KeyValuePair<string, Variant> field in fields) {
+                result.Set(string.Format("{0}.{1}", leftName, field.Key), field.Value);
+                result.Set(string.Format("{0}.{1}", rightName, field.Key), document.Get(field.Key));
+            }
+
+            return result;
+        }
     }
 }

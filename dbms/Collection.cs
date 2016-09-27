@@ -43,7 +43,20 @@ namespace dbms {
         }
 
         public Collection Join(Collection other, string field) {
-            return null;
+            Collection result = new Collection(string.Format("{0}_{1}", Name, other.Name));
+
+            for (int i = 0; i < Size; i++) {
+                Document doc = At(i);
+
+                if (doc.Has(field)) {
+                    Collection match = other.Select(new Filter(new Dictionary<string, Variant>() { { field, doc.Get(field) } }));
+                    
+                    for (int j = 0; j < match.Size; j++)
+                        result.Insert(doc.Join(match.At(j), Name, other.Name));
+                }
+            }
+            
+            return result;
         }
 
         public Document At(int i) {
