@@ -14,6 +14,10 @@ namespace dbms {
             Utility.ValidateName(name);
         }
 
+        public bool Contains(string name) {
+            return true;
+        }
+
         public void Drop(string name) {
         }
     }

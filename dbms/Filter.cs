@@ -1,9 +1,11 @@
-﻿namespace dbms {
-    public class Filter {
-        private string[] names;
+﻿using System.Collections.Generic;
 
-        public Filter(params string[] names) {
-            this.names = names;
+namespace dbms {
+    public class Filter {
+        private Dictionary<string, object> fields;
+
+        public Filter(Dictionary<string, object> fields) {
+            this.fields = fields;
         }
 
         public bool Match(Document document) {

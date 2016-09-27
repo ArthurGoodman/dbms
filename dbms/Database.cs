@@ -5,20 +5,27 @@ namespace dbms {
         public string Name { get; private set; }
         private Dictionary<string, Collection> collections = new Dictionary<string, Collection>();
 
+        public int Size {
+            get {
+                return collections.Count;
+            }
+        }
+
         public Database(string name) {
+            Utility.ValidateName(name);
+
             Name = name;
-        }
-
-        public void Create(string name) {
-            Utility.ValidateName(name);
-        }
-
-        public void Insert(string name, Collection collection) {
-            Utility.ValidateName(name);
         }
 
         public bool Contains(string name) {
             return true;
+        }
+
+        public Collection Collection(string name) {
+            return null;
+        }
+
+        public void Insert(Collection collection) {
         }
 
         public void Remove(string name) {

@@ -2,12 +2,19 @@
 
 namespace dbms {
     public class Collection {
+        public string Name { get; private set; } 
         private List<Document> documents = new List<Document>();
 
-        public int Count {
+        public int Size {
             get {
                 return documents.Count;
             }
+        }
+
+        public Collection(string name) {
+            Utility.ValidateName(name);
+
+            Name = name;
         }
 
         public void Insert(Document document) {
@@ -25,6 +32,10 @@ namespace dbms {
 
         public Collection Join(Collection other, string field) {
             return null;
+        }
+
+        public Document At(int i) {
+            return documents[i];
         }
     }
 }
