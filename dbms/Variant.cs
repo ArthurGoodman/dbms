@@ -43,7 +43,10 @@
         }
 
         public override bool Equals(object obj) {
-            return Value.Equals(obj);
+            if (obj is Variant)
+                return Value.Equals(((Variant)obj).Value);
+
+            return false;
         }
 
         public override int GetHashCode() {

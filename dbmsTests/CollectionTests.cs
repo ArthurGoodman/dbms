@@ -18,9 +18,9 @@ namespace dbms.Tests {
         public void UpdateTest() {
             Collection c = new Collection("test_collection");
             c.Insert(new Document(new Dictionary<string, Variant>() { { "test", new Variant(0) } }));
-            c.Update(new Filter(new Dictionary<string, Variant>() { { "test", new Variant(0) } }), new Document(new Dictionary<string, Variant>() { { "test", new Variant(1) } }));
+            c.Update(null, new Document(new Dictionary<string, Variant>() { { "test", new Variant(1) } }));
 
-            Assert.AreEqual(1, c.Select(new Filter(new Dictionary<string, Variant>() { { "test", new Variant(0) } })).At(0).Get("test"));
+            Assert.AreEqual(new Variant(1), c.Select(null).At(0).Get("test"));
         }
 
         [TestMethod()]
@@ -30,7 +30,7 @@ namespace dbms.Tests {
 
             Assert.AreEqual(1, c.Size);
 
-            c.Update(new Filter(new Dictionary<string, Variant>() { { "test", new Variant(0) } }), new Document(new Dictionary<string, Variant>() { { "test", new Variant(1) } }));
+            c.Remove(new Filter(new Dictionary<string, Variant>() { { "test", new Variant(0) } }));
 
             Assert.AreEqual(0, c.Size);
         }
@@ -38,9 +38,11 @@ namespace dbms.Tests {
         [TestMethod()]
         public void SelectTest() {
             Collection c = new Collection("test_collection");
-            c.Insert(new Document(new Dictionary<string, Variant>() { { "test", new Variant(0) } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(1) }, { "test", new Variant("one") } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(2) }, { "test", new Variant("two") } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(3) }, { "test", new Variant("three") } }));
 
-            Assert.AreEqual(0, c.Select(new Filter(new Dictionary<string, Variant>() { { "test", new Variant(0) } })).At(0).Get("test"));
+            Assert.AreEqual(new Variant("two"), c.Select(new Filter(new Dictionary<string, Variant>() { { "id", new Variant(2) } })).At(0).Get("test"));
         }
 
         [TestMethod()]
@@ -57,6 +59,18 @@ namespace dbms.Tests {
 
             Assert.AreEqual(new Variant(11), a.Join(b, "id").At(0).Get("a.test"));
             Assert.AreEqual(new Variant(55), a.Join(b, "id").At(0).Get("b.test"));
+        }
+
+        [TestMethod()]
+        public void AtTest() {
+            Collection c = new Collection("test_collection");
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "test", new Variant(11) } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "test", new Variant(22) } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "test", new Variant(33) } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "test", new Variant(44) } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "test", new Variant(55) } }));
+
+            Assert.AreEqual(new Variant(44), c.At(3).Get("test"));
         }
     }
 }

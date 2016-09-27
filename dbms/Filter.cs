@@ -12,6 +12,10 @@ namespace dbms {
         }
 
         public bool Match(Document document) {
+            foreach (KeyValuePair<string, Variant> field in fields)
+                if (!document.Has(field.Key) || !field.Value.Equals(document.Get(field.Key)))
+                    return false;
+
             return true;
         }
     }

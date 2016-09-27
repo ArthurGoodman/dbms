@@ -24,10 +24,20 @@ namespace dbms {
 
         public void Set(string name, Variant value) {
             Utility.ValidateName(name);
-            fields.Add(name, value);
+
+            if (Has(name))
+                fields[name] = value;
+            else
+                fields.Add(name, value);
         }
 
         public void Remove(string name) {
+            fields.Remove(name);
+        }
+
+        public void Assign(Document document) {
+            foreach (KeyValuePair<string, Variant> field in document.fields)
+                Set(field.Key, field.Value);
         }
     }
 }

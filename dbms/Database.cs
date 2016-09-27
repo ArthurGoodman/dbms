@@ -18,17 +18,27 @@ namespace dbms {
         }
 
         public bool Contains(string name) {
-            return true;
+            return collections.ContainsKey(name);
         }
 
         public Collection Collection(string name) {
-            return null;
+            if (Contains(name))
+                return collections[name];
+            else {
+                Utility.ValidateName(name);
+
+                Collection collection = new Collection(name);
+                collections.Add(name, collection);
+                return collection;
+            }
         }
 
         public void Insert(Collection collection) {
+            collections.Add(collection.Name, collection);
         }
 
         public void Remove(string name) {
+            collections.Remove(name);
         }
     }
 }
