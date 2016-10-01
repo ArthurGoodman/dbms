@@ -1,4 +1,7 @@
-﻿namespace dbms {
+﻿using System;
+using System.Drawing;
+
+namespace dbms {
     public class Variant {
         public enum ValueType {
             Null,
@@ -6,7 +9,9 @@
             Real,
             String,
             ComplexInteger,
-            ComplexReal
+            ComplexReal,
+            Bitmap,
+            RealInterval
         };
 
         public object Value { get; private set; }
@@ -42,6 +47,16 @@
             Type = ValueType.ComplexReal;
         }
 
+        public Variant(Bitmap value) {
+            Value = value;
+            Type = ValueType.Bitmap;
+        }
+
+        public Variant(RealInterval value) {
+            Value = value;
+            Type = ValueType.RealInterval;
+        }
+
         public override bool Equals(object obj) {
             if (obj is Variant)
                 return Value.Equals(((Variant)obj).Value);
@@ -55,6 +70,27 @@
 
         public override string ToString() {
             return Value.ToString();
+        }
+
+        public int CompareTo(Variant other) {
+            if (Type != other.Type)
+                InvalidComparison();
+
+            switch (Type) {
+                case ValueType.Int:
+                    return ((int)Value).CompareTo((int)other.Value);
+                case ValueType.Real:
+                    return ((double)Value).CompareTo((double)other.Value);
+                case ValueType.String:
+                    return ((string)Value).CompareTo((string)other.Value);
+            }
+
+            InvalidComparison();
+            return 0;
+        }
+
+        private static void InvalidComparison() {
+            throw new Exception("Invalid comparison");
         }
     }
 }

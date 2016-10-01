@@ -50,13 +50,17 @@ namespace dbms {
 
                 if (doc.Has(field)) {
                     Collection match = other.Select(new Filter(new Dictionary<string, Variant>() { { field, doc.Get(field) } }));
-                    
+
                     for (int j = 0; j < match.Size; j++)
                         result.Insert(doc.Join(match.At(j), Name, other.Name));
                 }
             }
-            
+
             return result;
+        }
+
+        public void Sort(string key) {
+            documents.Sort((doc1, doc2) => doc1.Get(key).CompareTo(doc2.Get(key)));
         }
 
         public Document At(int i) {

@@ -66,6 +66,24 @@ namespace dbms.Tests {
         }
 
         [TestMethod()]
+        public void SortTest() {
+            Collection c = new Collection("test_collection");
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(4) }, { "test", new Variant(0) } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(1) }, { "test", new Variant(3) } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(2) }, { "test", new Variant(2) } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(0) }, { "test", new Variant(4) } }));
+            c.Insert(new Document(new Dictionary<string, Variant>() { { "id", new Variant(3) }, { "test", new Variant(1) } }));
+
+            c.Sort("id");
+
+            Assert.AreEqual(new Variant(4), c.At(0).Get("test"));
+            Assert.AreEqual(new Variant(3), c.At(1).Get("test"));
+            Assert.AreEqual(new Variant(2), c.At(2).Get("test"));
+            Assert.AreEqual(new Variant(1), c.At(3).Get("test"));
+            Assert.AreEqual(new Variant(0), c.At(4).Get("test"));
+        }
+
+        [TestMethod()]
         public void AtTest() {
             Collection c = new Collection("test_collection");
             c.Insert(new Document(new Dictionary<string, Variant>() { { "test", new Variant(11) } }));
