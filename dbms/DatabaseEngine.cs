@@ -1,7 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace dbms {
     public class DatabaseEngine {
+        public static string FileName { get { return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\databases"; } }
+
         public Database db { get; private set; }
         private Dictionary<string, Database> databases = new Dictionary<string, Database>();
 
@@ -34,10 +39,32 @@ namespace dbms {
             databases.Remove(name);
         }
 
-        private void LoadData() {
+        public void LoadData() {
+            if (!File.Exists(FileName))
+                return;
+
+            FileStream stream = File.OpenRead(FileName);
+
+            try {
+                BinaryFormatter formatter = new BinaryFormatter();
+                databases = (Dictionary<string, Database>)formatter.Deserialize(stream);
+            } finally {
+                stream.Close();
+            }
         }
 
-        private void SaveData() {
+        public void SaveData() {
+            if (File.Exists(FileName))
+                File.Delete(FileName);
+
+            FileStream stream = File.Create(FileName);
+
+            try {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(stream, databases);
+            } finally {
+                stream.Close();
+            }
         }
     }
 }

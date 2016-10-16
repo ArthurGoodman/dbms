@@ -2,6 +2,7 @@
 using System.Drawing;
 
 namespace dbms {
+    [Serializable]
     public class Variant {
         public enum ValueType {
             Null,

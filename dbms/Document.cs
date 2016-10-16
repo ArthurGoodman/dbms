@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace dbms {
+    [Serializable]
     public class Document {
         private Dictionary<string, Variant> fields = new Dictionary<string, Variant>();
 

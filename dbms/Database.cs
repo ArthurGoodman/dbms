@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace dbms {
+    [Serializable]
     public class Database {
         public string Name { get; private set; }
         private Dictionary<string, Collection> collections = new Dictionary<string, Collection>();

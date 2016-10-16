@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace dbms {
+    [Serializable]
     public class Collection {
         public string Name { get; private set; }
         private List<Document> documents = new List<Document>();
