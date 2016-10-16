@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbms", "dbms\dbms.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbmsTests", "dbmsTests\dbmsTests.csproj", "{3D4BC09F-1BB8-4065-95CF-73357EF02133}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbmsui", "dbmsui\dbmsui.csproj", "{5271B2FD-808A-4E08-A122-ED64945647C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3D4BC09F-1BB8-4065-95CF-73357EF02133}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D4BC09F-1BB8-4065-95CF-73357EF02133}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D4BC09F-1BB8-4065-95CF-73357EF02133}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5271B2FD-808A-4E08-A122-ED64945647C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5271B2FD-808A-4E08-A122-ED64945647C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5271B2FD-808A-4E08-A122-ED64945647C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5271B2FD-808A-4E08-A122-ED64945647C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
